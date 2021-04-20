@@ -69,6 +69,14 @@ namespace BL.ERP
             var resultado = new Resultado();
             resultado.Exitoso = true;
 
+            if (producto == null)
+            {
+                resultado.Mensaje = "Agregue un producto valido";
+                resultado.Exitoso = false;
+                return resultado;
+            }
+
+
             if (string.IsNullOrEmpty (producto.Descripcion) == true)
             {
                 resultado.Mensaje = "Ingrese una descripción";
@@ -87,6 +95,19 @@ namespace BL.ERP
                 resultado.Exitoso = false;
             }
 
+
+            if (producto.CategoriaID == 0)
+            {
+                resultado.Mensaje = "Seleccione una categoria";
+                resultado.Exitoso = false;
+            }
+
+            if (producto.TipoId == 0)
+            {
+                resultado.Mensaje = "Seleccione un tipo";
+                resultado.Exitoso = false;
+            }
+
             return resultado;
         }
 
@@ -98,8 +119,20 @@ namespace BL.ERP
         public string Descripcion { get; set; }
         public double Precio { get; set; }
         public int Existencia { get; set; }
+        public int CategoriaID { get; set; }
+        public Categoria Categoria { get; set; }
+        public int TipoId { get; set; }
+        public Tipo Tipo { get; set; }
+        public byte[] Foto { get; set; }
         public bool Activo { get; set; }
+
+        public Inventario()
+        {
+            Activo = true;
+        }
     }
+
+ 
 
     public class Resultado
     {
